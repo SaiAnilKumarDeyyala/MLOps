@@ -1,0 +1,5 @@
+dvc[azure]
+scikit-learn
+pandas
+joblib
+pyyaml

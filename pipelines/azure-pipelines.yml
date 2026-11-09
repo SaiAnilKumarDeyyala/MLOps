@@ -1,0 +1,36 @@
+# Azure DevOps pipeline: pull versioned data from Azure Blob and reproduce training.
+#
+# Required pipeline secret variables (Pipelines > Library or pipeline variables):
+#   AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_CLIENT_SECRET
+# The service principal needs "Storage Blob Data Contributor" (or Reader, if the
+# pipeline only pulls) on the storage account. For production, prefer a service
+# connection with workload identity federation over a client secret.
+trigger:
+  branches:
+    include: [main]
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: "3.11"
+
+  - script: pip install -r requirements.txt
+    displayName: Install dependencies
+
+  - script: dvc pull
+    displayName: Pull versioned data from Azure Blob Storage
+    env:
+      AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
+      AZURE_TENANT_ID: $(AZURE_TENANT_ID)
+      AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
+
+  - script: |
+      dvc repro
+      dvc metrics show
+    displayName: Reproduce the training pipeline and show metrics
+
+  - script: dvc status
+    displayName: Verify pipeline is in sync with committed lock file

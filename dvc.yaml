@@ -1,0 +1,15 @@
+stages:
+  train:
+    cmd: python train.py
+    deps:
+      - train.py
+      - data/raw/train.csv
+    params:
+      - train.n_estimators
+      - train.seed
+      - train.test_size
+    outs:
+      - models/model.pkl
+    metrics:
+      - metrics.json:
+          cache: false

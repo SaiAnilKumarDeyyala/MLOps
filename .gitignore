@@ -1,0 +1,13 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Local secrets / env files (never commit)
+.env
+*.local
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
