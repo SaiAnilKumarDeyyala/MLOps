@@ -24,7 +24,6 @@ A hands-on, production-minded reference project showing how to **version dataset
 14. [Design decisions & trade-offs](#14-design-decisions--trade-offs)
 15. [Troubleshooting](#15-troubleshooting)
 16. [Cost & cleanup](#16-cost--cleanup)
-17. [Roadmap](#17-roadmap)
 
 ---
 
@@ -412,21 +411,19 @@ Observed when running `train.py` with the default `params.yaml` (`seed: 42`, sci
 | v1 (`v1.0`) | 300 | 0.9000 | 0.9032 |
 | v2 (`v2.0`, tag `model-v2`) | 569 | 0.9561 | 0.9655 |
 
-### Your `dvc metrics diff` output
+### Example `dvc metrics diff` output
 
-Paste the real terminal output from your own run here, plus a screenshot saved to `docs/images/`:
+`dvc metrics diff model-v2`, run on dataset v1 (300 rows) against the v2 model:
 
 ```text
-Output of `dvc metrics diff model-v2`, run on dataset v1 (300 rows) against the v2 model:
-
 | Path         | Metric   | model-v2 | workspace (v1) | Change  |
 |--------------|----------|----------|----------------|---------|
 | metrics.json | accuracy | 0.9561   | 0.9            | -0.0561 |
 | metrics.json | f1       | 0.9655   | 0.9032         | -0.0623 |
 | metrics.json | rows     | 569      | 300            | -269    |
+```
 
 ![dvc metrics diff output](docs/images/metrics-diff.png)
-```
 
 ### What this proves
 
@@ -523,17 +520,6 @@ az group delete -n rg-dvc-lab --yes --no-wait
 
 ---
 
-## 17. Roadmap
-
-- [ ] **MLflow experiment tracking** on top of DVC (parameters, metrics, model registry)
-- [ ] **Model serving on AKS**, with the container image pinned to a DVC-tracked model version
-- [ ] **Terraform module** for the storage account, container and RBAC
-- [ ] **Data validation stage** (schema and drift checks) before training
-- [ ] **Pull-request checks** that post a `dvc metrics diff` table as a comment
-- [ ] Architecture screenshots and a short walkthrough in `docs/images/`
-
----
-
 ## Author
 
-**Sai Anil Kumar Deyyala**: DevOps and Platform Engineer working toward AI-infrastructure and MLOps roles.
+**Sai Anil Kumar Deyyala**
