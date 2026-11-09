@@ -417,7 +417,15 @@ Observed when running `train.py` with the default `params.yaml` (`seed: 42`, sci
 Paste the real terminal output from your own run here, plus a screenshot saved to `docs/images/`:
 
 ```text
-<replace this block with the output of: dvc metrics diff model-v2>
+Output of `dvc metrics diff model-v2`, run on dataset v1 (300 rows) against the v2 model:
+
+| Path         | Metric   | model-v2 | workspace (v1) | Change  |
+|--------------|----------|----------|----------------|---------|
+| metrics.json | accuracy | 0.9561   | 0.9            | -0.0561 |
+| metrics.json | f1       | 0.9655   | 0.9032         | -0.0623 |
+| metrics.json | rows     | 569      | 300            | -269    |
+
+![dvc metrics diff output](docs/images/metrics-diff.png)
 ```
 
 ### What this proves
