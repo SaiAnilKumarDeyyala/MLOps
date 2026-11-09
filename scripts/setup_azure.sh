@@ -7,6 +7,10 @@
 #        RG=my-rg LOC=westeurope ./scripts/setup_azure.sh
 set -euo pipefail
 
+# Git Bash on Windows rewrites args starting with "/" (e.g. the /subscriptions/...
+# role scope) into Windows paths, which Azure rejects as MissingSubscription.
+export MSYS_NO_PATHCONV=1
+
 RG="${RG:-rg-dvc-lab}"
 LOC="${LOC:-centralindia}"
 SA="${SA:-dvclab$RANDOM$RANDOM}"        # globally unique, lowercase, 3-24 chars
