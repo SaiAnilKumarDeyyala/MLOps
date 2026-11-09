@@ -2,4 +2,4 @@
     remote = azremote
 ['remote "azremote"']
     url = azure://dvc-data/datasets
-    account_name = dvc-data
+    account_name = dvclab396115679
